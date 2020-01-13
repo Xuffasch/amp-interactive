@@ -267,7 +267,7 @@ limitations under the License.
       <div class="options price">
         <h6>PRICE :
           <!-- TODO: "Variable shirt prices" -->
-          $9.99
+          <span [text]="shirts[selected.sku].sizes[selectedSize] || '---'">---</span>
         </h6>
       </div>
 
@@ -275,7 +275,8 @@ limitations under the License.
         <h6>SIZE :</h6>
 
         <!-- TODO: "Variable shirt prices" -->
-        <amp-selector name="size">
+        <amp-selector name="size"
+          on="select:AMP.setState({selectedSize: event.targetOption})">
           <table>
             <tr>
               <!-- TODO: "Fetching available sizes for a shirt" -->
@@ -319,8 +320,9 @@ limitations under the License.
 
       <div class="options purchase">
         <!-- TODO: "Conditionally enabled button" -->
-        <input type="submit" value="ADD TO CART"
-            class="mdl-button mdl-button--raised mdl-button--accent">
+        <input type="submit" value="ADD TO CART" disabled
+            class="mdl-button mdl-button--raised mdl-button--accent"
+            [disabled]="!selectedSize || !shirts[selected.sku].sizes[selectedSize]">
       </div>
 
       <div submit-success>
